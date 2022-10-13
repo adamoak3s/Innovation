@@ -23,10 +23,9 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) this.findViewById(R.id.textView);
 
         HttpCall httpCallPost = new HttpCall();
-        httpCallPost.setMethodtype(HttpCall.POST);
         httpCallPost.setUrl("http://192.168.60.169:8080/www/sgs");
 
-        //set from the input element
+        //Eric -> just set the variable from an input element
         String id = "adam";
         httpCallPost.setId(id);
 

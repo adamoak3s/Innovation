@@ -1,5 +1,7 @@
 package com.example.innovation4;
 
+import android.util.Log;
+
 import java.util.HashMap;
 
 /**
@@ -22,19 +24,18 @@ public class HttpCall {
         this.url = url;
     }
 
-    public int getMethodtype() {
-        return methodtype;
-    }
-
-    public void setMethodtype(int methodtype) {
-        this.methodtype = methodtype;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDataString() {
+        //Eric, simply change the command & add and "id" field and grab the id value from the class field =)
+        //can hard-code in the command, receiver & cid for now
+        Log.e("HttpCall", "id is: " + id);
+        return "{\"command\":\"get_stb_notification\",\"receiver\":\"XTJ191170439614\",\"cid\":65535}";
     }
 }

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by pethoalpar on 4/16/2016.
+ * Created by oakeada on 10/13/2022.
  */
 public class HttpRequest extends AsyncTask<HttpCall, String, String>{
 
@@ -30,16 +30,14 @@ public class HttpRequest extends AsyncTask<HttpCall, String, String>{
         HttpCall httpCall = params[0];
         StringBuilder response = new StringBuilder();
         try{
-            //can hard-code in the command, receiver & cid for now, use a variable for the id
-            String id = httpCall.getId();
-            String dataParams = "{\"command\":\"get_stb_notification\",\"receiver\":\"XTJ191170439614\",\"cid\":65535}";
-            Log.e("adam", "id is: " + id);
-            URL url = new URL(httpCall.getMethodtype() == HttpCall.GET ? httpCall.getUrl() + dataParams : httpCall.getUrl());
+            String dataParams = httpCall.getDataString();
+
+            URL url = new URL(httpCall.getUrl());
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(httpCall.getMethodtype() == HttpCall.GET ? "GET":"POST");
+            urlConnection.setRequestMethod("POST");
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(30000 /* milliseconds */);
-            if(httpCall.getId() != null && httpCall.getMethodtype() == HttpCall.POST){
+            if(httpCall.getId() != null){
                 OutputStream os = urlConnection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, UTF_8));
                 writer.append(dataParams);
@@ -75,24 +73,5 @@ public class HttpRequest extends AsyncTask<HttpCall, String, String>{
 
     public void onResponse(String response){
 
-    }
-
-    private String getDataString(HashMap<String,String> params, int methodType) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean isFirst = true;
-        for(Map.Entry<String,String> entry : params.entrySet()){
-            if (isFirst){
-                isFirst = false;
-                if(methodType == HttpCall.GET){
-                    result.append("?");
-                }
-            }else{
-                result.append("&");
-            }
-            result.append(URLEncoder.encode(entry.getKey(), UTF_8));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), UTF_8));
-        }
-        return result.toString();
     }
 }
