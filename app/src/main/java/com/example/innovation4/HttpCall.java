@@ -36,6 +36,6 @@ public class HttpCall {
         //Eric, simply change the command & add and "id" field and grab the id value from the class field =)
         //can hard-code in the command, receiver & cid for now
         Log.e("HttpCall", "id is: " + id);
-        return "{\"command\":\"get_stb_notification\",\"receiver\":\"XTJ191170439614\",\"cid\":65535}";
+        return "{\"command\":\"get_network_connection_info\",\"receiver\":\"XTJ191170439614\",\"cid\":65535}";
     }
 }
