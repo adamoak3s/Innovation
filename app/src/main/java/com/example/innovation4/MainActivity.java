@@ -16,25 +16,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        doTheThing();
+    }
+
+    private void doTheThing() {
         textView = (TextView) this.findViewById(R.id.textView);
 
-        HashMap<String,String> params = new HashMap<>();
         HttpCall httpCallPost = new HttpCall();
         httpCallPost.setMethodtype(HttpCall.POST);
         httpCallPost.setUrl("http://192.168.60.169:8080/www/sgs");
-        HashMap<String,String> paramsPost = new HashMap<>();
-        params.put("command","get_stb_notification");
-        params.put("receiver","XTJ191170439614");
-        params.put("cid","65535");
-        Log.e("adam", "\n\n\nabout to send POST...\n\n\n");
-        httpCallPost.setParams(params);
+
+        //set from the input element
+        String id = "adam";
+        httpCallPost.setId(id);
+
         new HttpRequest(){
             @Override
             public void onResponse(String response) {
                 super.onResponse(response);
                 textView.setText(textView.getText()+"\nPost:"+response);
             }
+
         }.execute(httpCallPost);
-        Log.e("adam", "\n\n\nPOST *should* be sent...\n\n\n");
     }
 }

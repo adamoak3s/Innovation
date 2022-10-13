@@ -12,7 +12,7 @@ public class HttpCall {
 
     private String url;
     private int methodtype;
-    private HashMap<String,String> params ;
+    private String id;
 
     public String getUrl() {
         return url;
@@ -30,11 +30,11 @@ public class HttpCall {
         this.methodtype = methodtype;
     }
 
-    public HashMap<String, String> getParams() {
-        return params;
+    public String getId() {
+        return id;
     }
 
-    public void setParams(HashMap<String, String> params) {
-        this.params = params;
+    public void setId(String id) {
+        this.id = id;
     }
 }

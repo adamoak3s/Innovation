@@ -30,15 +30,16 @@ public class HttpRequest extends AsyncTask<HttpCall, String, String>{
         HttpCall httpCall = params[0];
         StringBuilder response = new StringBuilder();
         try{
+            //can hard-code in the command, receiver & cid for now, use a variable for the id
+            String id = httpCall.getId();
             String dataParams = "{\"command\":\"get_stb_notification\",\"receiver\":\"XTJ191170439614\",\"cid\":65535}";
-//            String dataParams = getDataString(myDataParams, httpCall.getMethodtype());
-            Log.e("adam", dataParams);
+            Log.e("adam", "id is: " + id);
             URL url = new URL(httpCall.getMethodtype() == HttpCall.GET ? httpCall.getUrl() + dataParams : httpCall.getUrl());
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(httpCall.getMethodtype() == HttpCall.GET ? "GET":"POST");
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(30000 /* milliseconds */);
-            if(httpCall.getParams() != null && httpCall.getMethodtype() == HttpCall.POST){
+            if(httpCall.getId() != null && httpCall.getMethodtype() == HttpCall.POST){
                 OutputStream os = urlConnection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, UTF_8));
                 writer.append(dataParams);
